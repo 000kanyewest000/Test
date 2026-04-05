@@ -1,0 +1,55 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+local ScreenGui = Instance.new("ScreenGui", player.PlayerGui)
+
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 200, 0, 150)
+Frame.Position = UDim2.new(0.5, -100, 0.5, -75)
+Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Frame.Active = true
+Frame.Draggable = true
+
+local SpeedButton = Instance.new("TextButton", Frame)
+SpeedButton.Size = UDim2.new(0, 180, 0, 40)
+SpeedButton.Position = UDim2.new(0, 10, 0, 10)
+SpeedButton.Text = "Toggle Speed"
+
+local speedOn = false
+
+SpeedButton.MouseButton1Click:Connect(function()
+	if speedOn then
+		humanoid.WalkSpeed = 16
+	else
+		humanoid.WalkSpeed = 50
+	end
+	
+	speedOn = not speedOn
+end)
+
+local JumpButton = Instance.new("TextButton", Frame)
+JumpButton.Size = UDim2.new(0, 180, 0, 40)
+JumpButton.Position = UDim2.new(0, 10, 0, 60)
+JumpButton.Text = "Toggle Jump"
+
+local jumpOn = false
+
+JumpButton.MouseButton1Click:Connect(function()
+	if jumpOn then
+		humanoid.JumpPower = 50
+	else
+		humanoid.JumpPower = 120
+	end
+	
+	jumpOn = not jumpOn
+end)
+
+local ResetButton = Instance.new("TextButton", Frame)
+ResetButton.Size = UDim2.new(0, 180, 0, 40)
+ResetButton.Position = UDim2.new(0, 10, 0, 110)
+ResetButton.Text = "Reset Character"
+
+ResetButton.MouseButton1Click:Connect(function()
+	player.Character:BreakJoints()
+end)
